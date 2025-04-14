@@ -1,5 +1,5 @@
 [package]
-name = "mdbook-slides-plugin"
+name = "mdbook-slides"
 version = "0.1.0"
 edition = "2021"
 
@@ -10,7 +10,7 @@ scraper = "0.18.1"
 serde_json = "1.0.108"
 
 [lib]
-name = "mdbook_slides_plugin"
+name = "mdbook_slides"
 path = "src/lib.rs"
 
 [[bin]]

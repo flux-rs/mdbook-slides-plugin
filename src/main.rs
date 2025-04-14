@@ -1,6 +1,6 @@
 use clap::{Arg, Command};
 use mdbook::preprocess::{CmdPreprocessor, Preprocessor};
-use mdbook_slides_plugin::SlidesPreprocessor;
+use mdbook_slides::SlidesPreprocessor;
 use std::io;
 use std::process;
 

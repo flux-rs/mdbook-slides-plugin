@@ -4,6 +4,7 @@ use mdbook::BookItem;
 
 const PREFIX: &str = r#"<div class="slides">"#;
 const SUFFIX: &str = r#"</div>"#;
+const SLIDE: &str = r#"<!-- SLIDE -->"#;
 
 pub struct SlidesPreprocessor;
 
@@ -26,7 +27,7 @@ fn wrap(input: &String) -> String {
     let mut wrapped_chunks = vec![];
     let mut cur = vec![];
     for l in input.lines() {
-        if l.starts_with("#") {
+        if l.starts_with(SLIDE) {
             push_block(&mut wrapped_chunks, &cur);
             cur = vec![l];
         } else {
@@ -43,8 +44,10 @@ impl Preprocessor for SlidesPreprocessor {
     }
 
     fn run(&self, _ctx: &PreprocessorContext, mut book: Book) -> mdbook::errors::Result<Book> {
-        let use_plugin = std::env::var("MDBOOK_SLIDES_PLUGIN").unwrap_or_default() == "true";
+        let plugin = std::env::var("MDBOOK_SLIDES").unwrap_or_default();
+        let use_plugin = plugin.trim() == "1";
         if use_plugin {
+            // panic!("DIn DIn DIp {plugin} {use_plugin}");
             book.for_each_mut(|book_item| {
                 if let BookItem::Chapter(ch) = book_item {
                     ch.content = wrap(&ch.content);
